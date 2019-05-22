@@ -1,6 +1,5 @@
 environments:
-- name: acceptance
-- name: production
+- name: dev
 service:
   port: 80
   healthEndpoint: /
