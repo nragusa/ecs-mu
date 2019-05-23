@@ -1,6 +1,6 @@
 environments:
 - name: dev
-  provider: ecs-fargate
+  provider: ecs
   vpcTarget:
     vpcId: vpc-09971460
     instanceSubnetIds:
