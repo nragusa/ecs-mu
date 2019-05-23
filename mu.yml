@@ -1,6 +1,9 @@
 environments:
 - name: dev
   provider: ecs
+  cluster:
+    keyName: ec2-user@box
+    sshAllow: 172.17.0.0/16
   vpcTarget:
     vpcId: vpc-09971460
     instanceSubnetIds:
