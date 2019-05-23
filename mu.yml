@@ -1,8 +1,34 @@
 environments:
-- name: acceptance
-- name: production
+- name: dev
+  provider: ecs-fargate
+  vpcTarget:
+    vpcId: vpc-09971460
+    instanceSubnetIds:
+      - subnet-b857c6d1
+      - subnet-3ce23a47
+      - subnet-af9462e2
+    elbSubnetIds:
+      - subnet-5456c73d
+      - subnet-9ee139e5
+      - subnet-db956396
 service:
+  name: ragusan-hello-world
+  desiredCount: 3
   port: 80
   healthEndpoint: /
   pathPatterns:
   - /*
+  pipeline:
+    source:
+      provider: GitHub                        # GitHub or CodeCommit (default: GitHub)
+    build:
+      disabled: false                         # Disable the build stage of the pipeline (default: false)
+      type: linuxContainer
+      computeType: BUILD_GENERAL1_SMALL       # The type of compute instance for builds (default: BUILD_GENERAL1_SMALL)
+    acceptance:
+      disabled: false                         # Disable the acceptance stage of the pipeline (default: false)
+      environment: dev                 # The environment name to deploy to for testing (default: acceptance)
+      type: linuxContainer
+      computeType: BUILD_GENERAL1_SMALL       # The type of compute instance for testing builds (default: BUILD_GENERAL1_SMALL)
+    production:
+      disabled: true                         # Disable the production stage of the pipeline (default: false)
